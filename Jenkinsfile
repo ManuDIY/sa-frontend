@@ -7,7 +7,7 @@ pipeline {
     stage('Pre-Build') {
       steps {
 		gitlabCommitStatus(name: 'npm install'){
-  			rocketSend channel: 'sa-frontend', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+			rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         		sh "npm install"
 		}
       }
@@ -30,7 +30,7 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend channel: 'sa-frontend', message: "sa-frontned compiled on branch master"
+		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *compiled* on branch ${env.BRANCH_NAME} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
 	}
   }
 }
