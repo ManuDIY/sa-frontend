@@ -2,9 +2,10 @@ pipeline {
   agent any
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
-   PUSHED_BY = bat(
+   PUSHED_BY = sh(
 		script: "git show -s --format='%an' HEAD",
-		returnStdout: true)
+		returnStdout: true,
+		)
   } 
   stages {
     stage('Pre-Build') {
