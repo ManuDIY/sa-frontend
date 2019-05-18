@@ -38,7 +38,7 @@ pipeline {
     			attachments: [[
         			title: "${env.gitlabSourceRepoName}",
         			color: 'green',
-        			text: 'Build Success  :white_check_mark: ',
+        			text: "Build Success  :white_check_mark: \nRecent Changes - ${getChangeString(10)}",
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
@@ -65,7 +65,7 @@ pipeline {
                         attachments: [[
         			title: "${env.gitlabSourceRepoName}",
                                 color: 'red',
-                                text: 'Build failed  :negative_squared_cross_mark: ',
+                                text: "Build failed  :negative_squared_cross_mark: \nRecent Changes - ${getChangeString(10)}",
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
