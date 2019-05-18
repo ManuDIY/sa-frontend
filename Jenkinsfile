@@ -3,6 +3,7 @@ pipeline {
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
   } 
+  rocketSend channel: 'sa-frontend', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
   stages {
     stage('Pre-Build') {
       steps {
@@ -29,7 +30,7 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-frontend', message: "sa-frontned compiled on branch master"
+		rocketSend channel: 'sa-frontend', message: "sa-frontned compiled on branch master"
 	}
   }
 }
