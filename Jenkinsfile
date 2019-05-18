@@ -19,4 +19,5 @@ pipeline {
      success {
 	updateGitlabCommitStatus(name: 'Jenkins', state: 'success')
 	}
+  }
 }
