@@ -31,7 +31,7 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *compiled* on branch ${env.BRANCH_NAME} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
+		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *compiled* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
 	}
   }
 }
