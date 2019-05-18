@@ -2,6 +2,9 @@ pipeline {
   agent any
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
+   PUSHED_BY = bat(
+		script: "git show -s --format='%an' HEAD",
+		returnStdout: true)
   } 
   stages {
     stage('Pre-Build') {
@@ -22,7 +25,7 @@ pipeline {
    stage('Package') {
       steps {
 		gitlabCommitStatus(name: 'Docker image build'){
-        		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
+        		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER}"
 	}
       }
     }
@@ -33,11 +36,11 @@ pipeline {
     			attachments: [[
         			title: 'SA Frontend',
         			color: 'green',
-        			text: 'Build Success  :100:',
+        			text: 'Build Success  :white_check_mark: ',
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
-        			authorName: 'Ansil',
+        			authorName: "${PUSHED_BY}",
         			authorIcon: '',
         			authorLink: '',
         			titleLink: "${env.BUILD_URL}",
@@ -56,7 +59,29 @@ pipeline {
 	}
      failure {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
-		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *failed* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
+		rocketSend(
+                        attachments: [[
+                                title: 'SA Frontend',
+                                color: 'red',
+                                text: 'Build failed  :negative_squared_cross_mark: ',
+                                thumbUrl: '',
+                                messageLink: '',
+                                collapsed: false,
+                                authorName: 'Ansil',
+                                authorIcon: '',
+                                authorLink: '',
+                                titleLink: "${env.BUILD_URL}",
+                                titleLinkDownload: '',
+                                imageUrl: '',
+                                audioUrl: '',
+                                videoUrl: ''
+                        ]],
+                        channel: 'sa-project',
+                        message: '',
+                        avatar: "${JENKINS_AVATAR_URL}",
+                        failOnError: true,
+                        rawMessage: true
+                )
 	}
   }
 }
