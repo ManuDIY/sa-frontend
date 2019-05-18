@@ -30,13 +30,12 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend attachments: [
-						[$class: 'MessageAttachment', color: 'green', text: 'Build Succes'', title: 'Build Status'],
-					],
-					avatar: "$JENKINS_AVATAR_URL", 
-					channel: 'sa-project', 
-					message: "sa-frontned *compiled* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", 
-					rawMessage: true
+		rocketSend
+		    attachments: [
+        		[$class: 'MessageAttachment', color: 'green', text: 'Build Succes'', title: 'my attachment'],
+        		[$class: 'MessageAttachment', color: 'red', text: 'Something failed', title: 'my other attachment'],
+    			],
+    			channel: 'sa-project', message: 'My message', rawMessage: true
 	}
      failure {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
