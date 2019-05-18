@@ -3,7 +3,7 @@ pipeline {
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
    PUSHED_BY = sh(
-		script: "git show -s --format='%an' HEAD",
+		script: "git show -s --format='%an(%ae)'  HEAD",
 		returnStdout: true,
 		)
   } 
@@ -36,7 +36,7 @@ pipeline {
      success {
 		rocketSend(
     			attachments: [[
-        			title: 'SA Frontend',
+        			title: "${env.gitlabSourceRepoName}",
         			color: 'green',
         			text: 'Build Success  :white_check_mark: ',
         			thumbUrl: '',
@@ -63,7 +63,7 @@ pipeline {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
 		rocketSend(
                         attachments: [[
-                                title: 'SA Frontend',
+        			title: "${env.gitlabSourceRepoName}",
                                 color: 'red',
                                 text: 'Build failed  :negative_squared_cross_mark: ',
                                 thumbUrl: '',
