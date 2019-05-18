@@ -2,19 +2,19 @@ pipeline {
   agent any
  
   stages {
-    stage('Installing dependencies..') {
+    stage('Pre-Build') {
       steps {
 		gitlabCommitStatus(name: 'Prebuild Actions'){
         		sh "npm install"
 		}
       }
     }
-   stage('Building App..') {
+   stage('Building') {
       steps {
         	sh "npm run build"
       }
     }
-   stage('Packaging container..') {
+   stage('Packaging') {
       steps {
         	sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
       }
