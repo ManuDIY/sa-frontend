@@ -27,6 +27,7 @@ pipeline {
       steps {
 		gitlabCommitStatus(name: 'Docker image build'){
         		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
+			sh "env"
 	}
       }
     }
