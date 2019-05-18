@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-   JENKINS_AVATAR_URL = "https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
+   JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
   } 
   stages {
     stage('Pre-Build') {
@@ -29,7 +29,7 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: '#sa-frontend', message: "sa-frontned *compiled* on branch ${env.BRANCH_NAME} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
+		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-frontend', message: "sa-frontned compiled on branch master"
 	}
   }
 }
