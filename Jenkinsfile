@@ -30,12 +30,12 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend
+		rocketSend(
 		    attachments: [
         		[$class: 'MessageAttachment', color: 'green', text: 'Build Succes'', title: 'my attachment'],
         		[$class: 'MessageAttachment', color: 'red', text: 'Something failed', title: 'my other attachment'],
     			],
-    			channel: 'sa-project', message: 'My message', rawMessage: true
+    			channel: 'sa-project', message: 'My message', rawMessage: true)
 	}
      failure {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
