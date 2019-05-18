@@ -1,3 +1,10 @@
+# Jenkins/Gitlab Integration
+
+The Jenkinsfile adopted Rocket.Chat plugin to send notification
+Adopt the file according to your build pipeline
+
+# Local build
+
 ## Starting the Web App Locally
 ` $ yarn start `
 
@@ -12,3 +19,4 @@
 
 ## Pushing the container ###
 ` $ docker push $DOCKER_USER_ID/sentiment-analysis-frontend `
+
