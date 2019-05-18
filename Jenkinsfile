@@ -29,8 +29,30 @@ pipeline {
   }
   post {
      success {
+		rocketSend(
+    			attachments: [[
+        			title: 'My repository',
+        			color: 'red',
+        			text: 'unit test failed :sob:',
+        			thumbUrl: '',
+        			messageLink: '',
+        			collapsed: false,
+        			authorName: 'Zevran',
+        			authorIcon: '',
+        			authorLink: '',
+        			titleLink: 'https://github.com',
+        			titleLinkDownload: '',
+        			imageUrl: '',
+        			audioUrl: '',
+        			videoUrl: ''
+    			]],
+    			channel: 'sa-project',
+    			message: '',
+    			avatar: 'https://github.com/fluidicon.png',
+    			failOnError: true,
+    			rawMessage: true
+		)
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend attachments: [[color: 'green', text: 'Build Succes'', title: 'my attachment'],[color: 'red', text: 'Something failed', title: 'my other attachment']], channel: 'sa-project', message: 'My message', rawMessage: true
 	}
      failure {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
