@@ -11,13 +11,18 @@ pipeline {
     }
    stage('Building App..') {
       steps {
-        sh "npm run build"
+        	sh "npm run build"
+      }
+    }
+   stage('Packaging container..') {
+      steps {
+        	sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
       }
     }
   }
   post {
      success {
-	updateGitlabCommitStatus(name: 'Jenkins', state: 'success')
+		updateGitlabCommitStatus(name: 'Jenkins', state: 'success')
 	}
   }
 }
