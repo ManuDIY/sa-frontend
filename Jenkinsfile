@@ -68,7 +68,7 @@ pipeline {
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: 'Ansil',
+                                authorName: "${PUSHED_BY}",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
