@@ -4,7 +4,9 @@ pipeline {
   stages {
     stage('Installing dependencies..') {
       steps {
-        sh "npm install"
+		gitlabCommitStatus(name: 'Prebuild Actions'){
+        		sh "npm install"
+		}
       }
     }
    stage('Building App..') {
@@ -13,4 +15,8 @@ pipeline {
       }
     }
   }
+  post {
+     success {
+	updateGitlabCommitStatus(name: 'Jenkins', state: 'success')
+	}
 }
