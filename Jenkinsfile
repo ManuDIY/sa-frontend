@@ -26,7 +26,7 @@ pipeline {
    stage('Package') {
       steps {
 		gitlabCommitStatus(name: 'Docker image build'){
-        		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER}"
+        		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
 	}
       }
     }
@@ -41,7 +41,7 @@ pipeline {
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
-        			authorName: "${PUSHED_BY}",
+        			authorName: "Started by the changes from ${PUSHED_BY}",
         			authorIcon: '',
         			authorLink: '',
         			titleLink: "${env.BUILD_URL}",
@@ -68,7 +68,7 @@ pipeline {
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: "${PUSHED_BY}",
+                                authorName: "Started by the changes from ${PUSHED_BY}",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
