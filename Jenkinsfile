@@ -9,7 +9,6 @@ pipeline {
 		gitlabCommitStatus(name: 'npm install'){
 			rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         		sh "npm install"
-        		sh "env"
 		}
       }
     }
@@ -31,7 +30,15 @@ pipeline {
   post {
      success {
 		updateGitlabCommitStatus(name: 'Pipeline', state: 'success')
-		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *compiled* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
+		rocketSend attachments: [
+                         [$class: 'MessageAttachment', color: 'green', text: 'Build Succes'', title: 'Build Status'],
+                         avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', 
+                         message: "sa-frontned *compiled* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", 
+                         rawMessage: true
+	}
+     failure {
+		updateGitlabCommitStatus(name: 'Pipeline', state: 'failed')
+		rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "sa-frontned *failed* on branch ${env.GIT_BRANC} \nRecent Changes - ${getChangeString(10)}\nBuild: ${BUILD_URL}", rawMessage: true
 	}
   }
 }
