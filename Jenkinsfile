@@ -7,7 +7,7 @@ pipeline {
     stage('Pre-Build') {
       steps {
 		gitlabCommitStatus(name: 'npm install'){
-			rocketSend avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+			rocketSend(avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
         		sh "npm install"
 		}
       }
