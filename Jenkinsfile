@@ -31,16 +31,16 @@ pipeline {
      success {
 		rocketSend(
     			attachments: [[
-        			title: 'My repository',
-        			color: 'red',
-        			text: 'unit test failed :sob:',
+        			title: 'SA Frontend',
+        			color: 'green',
+        			text: 'Build Success  :sob:',
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
-        			authorName: 'Zevran',
+        			authorName: 'Ansil',
         			authorIcon: '',
         			authorLink: '',
-        			titleLink: 'https://github.com',
+        			titleLink: "(<${env.BUILD_URL}|Open>)",
         			titleLinkDownload: '',
         			imageUrl: '',
         			audioUrl: '',
@@ -48,7 +48,7 @@ pipeline {
     			]],
     			channel: 'sa-project',
     			message: '',
-    			avatar: 'https://github.com/fluidicon.png',
+    			avatar: "${JENKINS_AVATAR_URL}",
     			failOnError: true,
     			rawMessage: true
 		)
