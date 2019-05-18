@@ -3,11 +3,11 @@ pipeline {
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
   } 
-  rocketSend channel: 'sa-frontend', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
   stages {
     stage('Pre-Build') {
       steps {
 		gitlabCommitStatus(name: 'npm install'){
+  			rocketSend channel: 'sa-frontend', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         		sh "npm install"
 		}
       }
