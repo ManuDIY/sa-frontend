@@ -19,7 +19,7 @@ pipeline {
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: "Build job ${env.BUILD_NUMBER} started",
+                                authorName: "Build job ${env.BUILD_NUMBER} started :arrows_counterclockwise:",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
