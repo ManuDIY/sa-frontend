@@ -45,15 +45,7 @@ pipeline {
 		}
       }
     }
-   stage('Package') {
-      steps {
-		gitlabCommitStatus(name: 'Docker image build'){
-        		sh "docker image build --tag ansilh/sa-frontend-${env.BUILD_NUMBER} ."
-			sh "env"
-	}
-      }
-    }
-    stage('Stage') {
+    stage('Package and Stage') {
        steps {
 		    script {
                 	docker.withRegistry('https://registry.linxlabs.com:5000', 'docker-cred'){
