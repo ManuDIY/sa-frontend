@@ -56,8 +56,10 @@ pipeline {
     stage('Stage') {
        steps {
                 docker.withRegistry('https://registry.linxlabs.com:5000', 'docker-cred'){
-                    def customImage = docker.build("sa-frontend:${env.BUILD_ID}")
-                    customImage.push()
+		    script {
+                    	def customImage = docker.build("sa-frontend:${env.BUILD_ID}")
+                    	customImage.push()
+			}
         }
       }
     }
