@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Pre-Build') {
       steps {
-		gitlabCommitStatus(name: 'npm install'){
+		gitlabCommitStatus(name: 'NPM install'){
 			rocketSend(
                         attachments: [[
                                 title: "${env.gitlabSourceRepoName}",
@@ -40,13 +40,14 @@ pipeline {
     }
    stage('Build') {
       steps {
-		gitlabCommitStatus(name: 'npm run build'){
+		gitlabCommitStatus(name: 'NPM build'){
         		sh "npm run build"
 		}
       }
     }
     stage('Package and Stage') {
        steps {
+		gitlabCommitStatus(name: 'Docker build and Push'){
 		    script {
                 	docker.withRegistry('https://registry.linxlabs.com:5000', 'docker-cred'){
                     		def customImage = docker.build("sa-frontend:${env.BUILD_ID}")
