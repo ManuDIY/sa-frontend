@@ -129,7 +129,7 @@ def getChangeString(maxMessages) {
     }
 
     if (!changeString) {
-        changeString = " There have not been changes since the last build"
+        changeString = " There have not been changes since the last build."
     }
     return changeString
 }
