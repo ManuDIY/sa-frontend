@@ -1,6 +1,9 @@
-# Jenkins/Gitlab Integration
+# Continous Integration (CI)
 
-The Jenkinsfile adopted Rocket.Chat plugin to send notification
+Pipleline pre-requisites
+- Private Docker registry - to publish artifacts
+- Gitlab hook - build-trigger & chat notification
+- Rocket.Chat - for notification
 Adopt the file according to your build pipeline
 
 # Local build
