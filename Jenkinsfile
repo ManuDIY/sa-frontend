@@ -15,11 +15,11 @@ pipeline {
                         attachments: [[
                                 title: "${env.gitlabSourceRepoName}",
                                 color: 'yellow',
-                                text: "Build Started  :arrows_counterclockwise: (<${env.BUILD_URL}|Open>) \nRecent Changes - ${getChangeString(10)}",
+                                text: ":arrows_counterclockwise:\nRecent Changes - \n${getChangeString(10)}",
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: "Commit from ${PUSHED_BY}",
+                                authorName: "Build job (<${env.BUILD_URL}|Open>) started by the commit from ${PUSHED_BY}",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
@@ -60,7 +60,7 @@ pipeline {
     			attachments: [[
         			title: "${env.gitlabSourceRepoName}",
         			color: 'green',
-        			text: "Build Success  :white_check_mark: \nRecent Changes - ${getChangeString(10)}",
+        			text: "Build Success  :white_check_mark: \nRecent Changes - \n${getChangeString(10)}",
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
