@@ -3,7 +3,7 @@ pipeline {
   environment {
    JENKINS_AVATAR_URL="https://raw.githubusercontent.com/jenkinsci/jenkins/master/war/src/main/webapp/images/headshot.png"
    PUSHED_BY = sh(
-		script: "git show -s --format='%an(%ae)'  HEAD",
+		script: "git show -s --format='%an(%ae)' HEAD",
 		returnStdout: true,
 		)
   } 
