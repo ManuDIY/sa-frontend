@@ -58,7 +58,6 @@ pipeline {
                 docker.withRegistry('https://registry.linxlabs.com:5000', 'docker-cred'){
                     def customImage = docker.build("sa-frontend:${env.BUILD_ID}")
                     customImage.push()
-                }
         }
       }
     }
