@@ -19,7 +19,7 @@ pipeline {
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: "Build job ${env.BUILD_NUMBER} [Open](${env.BUILD_URL}) started by the commit from ${PUSHED_BY}",
+                                authorName: "Build job ${env.BUILD_NUMBER} started",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
