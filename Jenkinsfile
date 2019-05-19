@@ -109,4 +109,27 @@ pipeline {
         }
     }
 }
+@NonCPS
+def getChangeString(maxMessages) {
+    MAX_MSG_LEN = 100
+    COMMIT_HASH_DISPLAY_LEN = 7
+    def changeString = ""
 
+    def changeLogSets = currentBuild.changeSets
+
+
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length && i + j < maxMessages; j++) {
+            def entry = entries[j]
+            truncated_msg = entry.msg.take(MAX_MSG_LEN)
+            commitHash = entry.commitId.take(COMMIT_HASH_DISPLAY_LEN)
+            changeString += "${commitHash}... - ${truncated_msg} [${entry.author}]\n"
+        }
+    }
+
+    if (!changeString) {
+        changeString = " There have not been changes since the last build."
+    }
+    return changeString
+}
