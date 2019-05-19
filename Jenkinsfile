@@ -11,7 +11,29 @@ pipeline {
     stage('Pre-Build') {
       steps {
 		gitlabCommitStatus(name: 'npm install'){
-			rocketSend(avatar: "$JENKINS_AVATAR_URL", channel: 'sa-project', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+			rocketSend(
+                        attachments: [[
+                                title: "${env.gitlabSourceRepoName}",
+                                color: 'yellow',
+                                text: "Build Started  :arrows_counterclockwise: (<${env.BUILD_URL}|Open>) \nRecent Changes - ${getChangeString(10)}",
+                                thumbUrl: '',
+                                messageLink: '',
+                                collapsed: false,
+                                authorName: "Commit from ${PUSHED_BY}",
+                                authorIcon: '',
+                                authorLink: '',
+                                titleLink: "${env.BUILD_URL}",
+                                titleLinkDownload: '',
+                                imageUrl: '',
+                                audioUrl: '',
+                                videoUrl: ''
+                        ]],
+                        channel: 'sa-project',
+                        message: '',
+                        avatar: "${JENKINS_AVATAR_URL}",
+                        failOnError: true,
+                        rawMessage: true
+                )
         		sh "npm install"
 		}
       }
@@ -42,7 +64,7 @@ pipeline {
         			thumbUrl: '',
         			messageLink: '',
         			collapsed: false,
-        			authorName: "Started by the changes from ${PUSHED_BY}",
+        			authorName: "Commit from ${PUSHED_BY}",
         			authorIcon: '',
         			authorLink: '',
         			titleLink: "${env.BUILD_URL}",
@@ -69,7 +91,7 @@ pipeline {
                                 thumbUrl: '',
                                 messageLink: '',
                                 collapsed: false,
-                                authorName: "Started by the changes from ${PUSHED_BY}",
+                                authorName: "Last commit was from ${PUSHED_BY}",
                                 authorIcon: '',
                                 authorLink: '',
                                 titleLink: "${env.BUILD_URL}",
