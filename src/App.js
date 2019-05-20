@@ -20,7 +20,12 @@ class App extends Component {
     };
 
     analyzeSentence() {
-        fetch('http://localhost:8080/sentiment', {
+	if(process.env.REACT_APP_API_URL){
+		var url = `${process.env.REACT_APP_API_URL}/sentiment`
+	} else {
+		url = 'http://localhost:9292/sentiment'
+	}
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
