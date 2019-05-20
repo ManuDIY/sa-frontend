@@ -5,7 +5,7 @@ Pipleline pre-requisites
 - Gitlab hook - build-trigger & chat notification
 - Rocket.Chat - for notification
 Adopt the file according to your build pipeline
-
+Change env variable REACT_APP_API_URL to point to differnt API endpoint 
 # Local build
 
 ## Starting the Web App Locally
