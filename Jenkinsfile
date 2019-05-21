@@ -37,7 +37,7 @@ pipeline {
         stage('Build') {
             steps {
                 gitlabCommitStatus(name: 'NPM build'){
-                    sh "REACT_APP_API_URL=http://sa-webapp.development.svc.cluster.local npm run build"
+                    sh "REACT_APP_API_URL=http://192.168.137.203 npm run build"
                 }
             }
         }
