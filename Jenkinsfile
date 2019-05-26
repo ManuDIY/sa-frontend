@@ -1,7 +1,7 @@
 def  appName = 'sa'
 def  feSvcName = "${appName}-frontend"
 def  registry = "registry.linxlabs.com:5000"
-def  buildTag = "${feSvcName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+def  buildTag = "${feSvcName}:${env.gitlabBranch}.${env.BUILD_NUMBER}"
 def  containerTag = "${registry}/${buildTag}"
 
 pipeline {
