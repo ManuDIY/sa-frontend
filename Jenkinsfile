@@ -36,6 +36,7 @@ pipeline {
                         failOnError: true,
                         rawMessage: true
                     )
+                    sh "env"
                     sh "npm install"
                 }
             }
