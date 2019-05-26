@@ -12,9 +12,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sa-frontend
-  app: sa
-  role: frontend
-  env: production
+  labels:
+    app: sa
+    role: frontend
+    env: production
 spec:
   ports:
   - port: 80
