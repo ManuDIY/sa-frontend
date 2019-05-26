@@ -68,7 +68,7 @@ pipeline {
         }
 	stage('Check deployment time'){
 	    steps{
-		sh("count=0
+		sh("""count=0
 		    while true
 			do
 			if [ $(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get deployments sa-frontend  --output=jsonpath={.status.availableReplicass}) -ge 1 ]
@@ -83,7 +83,7 @@ pipeline {
 			   exit 1
 			 fi
 			fi
-		done")
+		done""")
 	    }
 	}
     }
