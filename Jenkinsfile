@@ -68,7 +68,7 @@ pipeline {
         }
 	stage('Check deployment time'){
 	    steps{
-		sh('''
+		sh '''
 		    count=0
 		    while true
 			do
@@ -84,7 +84,7 @@ pipeline {
 			   exit 1
 			 fi
 			fi
-		done""")
+		done'''
 	    }
 	}
     }
