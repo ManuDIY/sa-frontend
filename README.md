@@ -4,6 +4,7 @@ Pipleline pre-requisites
 - Private Docker registry - to publish artifacts
 - Gitlab hook - build-trigger & chat notification
 - Rocket.Chat - for notification
+
 Adopt the file according to your build pipeline
 Change env variable REACT_APP_API_URL to point to differnt API endpoint 
 # Local build
