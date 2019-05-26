@@ -87,6 +87,7 @@ pipeline {
 		done'''
 	    }
 	}
+	stage('App health check'){
 	steps {
 		timeout(time: 30, unit: 'SECONDS') {
                 	retry(5) {
@@ -96,6 +97,7 @@ pipeline {
                 	}
                 }
             }
+	}
     }
     post {
         success {
