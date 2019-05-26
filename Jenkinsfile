@@ -1,3 +1,9 @@
+def  appName = 'sa'
+def  feSvcName = "${appName}-frontend"
+def  registry = "registry.linxlabs.com:5000"
+def  buildTag = "${feSvcName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+def  containerTag = "${registry}/${buildTag}"
+
 pipeline {
     agent any
     environment {
@@ -116,13 +122,6 @@ pipeline {
     }
 }
 @NonCPS
-
-def  appName = 'sa'
-def  feSvcName = "${appName}-frontend"
-def  registry = "registry.linxlabs.com:5000"
-def  buildTag = "${feSvcName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-def  containerTag = "${registry}/${buildTag}"
-
 def getChangeString(maxMessages) {
     MAX_MSG_LEN = 100
     COMMIT_HASH_DISPLAY_LEN = 7
