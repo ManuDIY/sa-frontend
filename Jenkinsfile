@@ -72,7 +72,7 @@ pipeline {
 		    count=0
 		    while true
 			do
-			if [ $(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get deployments sa-frontend  --output=jsonpath={.status.availableReplicass}) -ge 1 ]
+			if [ $(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get deployments sa-frontend  --output=jsonpath={.status.availableReplicas}) -ge 1 ]
 			then
 			 exit 0
 			else
@@ -87,6 +87,15 @@ pipeline {
 		done'''
 	    }
 	}
+	steps {
+		timeout(time: 30, unit: 'SECONDS') {
+                	retry(5) {
+                	        sh '''
+				curl -s -o /dev/null -w "%{http_code}" http://$(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get svc sa-frontend --no-headers --output=jsonpath={.status.loadBalancer.ingress[0].ip})
+				'''
+                	}
+                }
+            }
     }
     post {
         success {
