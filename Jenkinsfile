@@ -66,6 +66,26 @@ pipeline {
                 sh("/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml --namespace default apply -f ${feSvcName}.yaml")
             }
         }
+	stage('Check deployment time'){
+	    steps{
+		sh("count=0
+		    while true
+			do
+			if [ $(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get deployments sa-frontend  --output=jsonpath={.status.availableReplicass}) -ge 1 ]
+			then
+			 exit 0
+			else
+			 sleep 10
+			 count=`expr $count + 1`
+			 if [ $count -eq 3 ]
+			 then
+			   echo "Unable to start Pod"
+			   exit 1
+			 fi
+			fi
+		done")
+	    }
+	}
     }
     post {
         success {
