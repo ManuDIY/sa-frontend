@@ -62,12 +62,15 @@ pipeline {
         }
         stage('Deploy to Kubernetes Cluster'){
             steps{
-		sh("sed -i.bak 's#SA_FRONTEND_CONTAINER_IMAGE#${containerTag}#' ${feSvcName}.yaml")
-                sh("/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml --namespace default apply -f ${feSvcName}.yaml")
-            }
+		gitlabCommitStatus(name: 'K8S Deployment'){
+			sh("sed -i.bak 's#SA_FRONTEND_CONTAINER_IMAGE#${containerTag}#' ${feSvcName}.yaml")
+                	sh("/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml --namespace default apply -f ${feSvcName}.yaml")
+            		}
+		}
         }
 	stage('Check deployment time'){
 	    steps{
+		gitlabCommitStatus(name: 'K8S Deployment Replica status'){
 		sh '''
 		    count=0
 		    while true
@@ -85,17 +88,20 @@ pipeline {
 			 fi
 			fi
 		done'''
+		}
 	    }
 	}
 	stage('App health check'){
 	steps {
-		timeout(time: 30, unit: 'SECONDS') {
-                	retry(5) {
-                	        sh '''
-				curl -s -o /dev/null -w "%{http_code}" http://$(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get svc sa-frontend --no-headers --output=jsonpath={.status.loadBalancer.ingress[0].ip})
-				'''
+		gitlabCommitStatus(name: 'Application Health'){
+			timeout(time: 30, unit: 'SECONDS') {
+                		retry(5) {
+                		        sh '''
+					curl -s -o /dev/null -w "%{http_code}" http://$(/home/jenkins/kubectl --kubeconfig=/home/jenkins/k8s-cluster.yaml get svc sa-frontend --no-headers --output=jsonpath={.status.loadBalancer.ingress[0].ip})
+					'''
+                		}
                 	}
-                }
+		}
             }
 	}
     }
